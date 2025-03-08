@@ -19,10 +19,17 @@ router.post('/clients/login', async (req, res) => {
     try {
         const { emailAddress, password } = req.body;
         const client = await Client.findOne({ emailAddress });
+        console.log(client)
+        console.log(password)
         if (!client) {
             return res.status(404).send({ error: 'Invalid login credentials' });
         }
-        const isMatch = await bcrypt.compare(password, client.password);
+        let isMatch
+        if (password === client.password){
+            isMatch = true
+        }
+        else{isMatch = false}
+        console.log(client.password)
         if (!isMatch) {
             return res.status(404).send({ error: 'Invalid login credentials' });
         }

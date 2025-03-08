@@ -15,7 +15,7 @@ import {
 
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [emailAddress, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // Fonction pour gérer l'envoi du formulaire
@@ -23,11 +23,11 @@ function LoginPage() {
     e.preventDefault();
 
     // Crée un objet avec les données du formulaire
-    const loginData = { email, password };
+    const loginData = { emailAddress, password };
 
     try {
       // Envoie la requête de login au backend
-      const response = await fetch("http://localhost:3000/clients/login", {
+      const response = await fetch("http://localhost:3000/api/clients/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,6 +41,7 @@ function LoginPage() {
         console.log("Utilisateur connecté", data);
         // Rediriger l'utilisateur vers une autre page, si nécessaire
       } else {
+        console.log(response)
         console.error("Erreur de login");
         // Gérer l'erreur (par exemple afficher un message d'erreur)
       }
@@ -62,7 +63,7 @@ function LoginPage() {
 
               <p>Connection</p>
               <form onSubmit={handleSubmit}>
-                <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' value={emailAddress} onChange={(e) => setEmail(e.target.value)} />
                 <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 
 
