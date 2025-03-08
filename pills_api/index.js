@@ -1,4 +1,8 @@
 const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config();
+const clientRoutes = require('./clientRoutes');
+
 
 const app = express();
 const port = 3000;
@@ -11,6 +15,8 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+
+app.use('/api', clientRoutes);
 
 // Start the server
 app.listen(port, () => {
