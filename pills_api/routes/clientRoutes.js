@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Client } = require('./schemas/Schemas');
+const { Client } = require('../schemas/schemas.js');
 
 // Create a new client
 router.post('/clients', async (req, res) => {

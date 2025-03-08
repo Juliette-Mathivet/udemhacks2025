@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Medicine } = require('./schemas/Schemas');
+const { Medicine } = require('../schemas/schemas.js');
 
 // Create a new medicine
 router.post('/medicines', async (req, res) => {
