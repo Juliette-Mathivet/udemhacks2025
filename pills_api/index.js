@@ -7,13 +7,13 @@ require('dotenv').config();
 const clientRoutes = require('./routes/clientRoutes');
 const doctorRoutes = require('./routes/doctorRoutes');
 const medicineRoutes = require('./routes/medecineRoutes');
-
+const cors = require('cors')
 const app = express();
 const port = 3000;
 
 // Middleware to parse JSON bodies
-app.use(express.json());
-
+// app.use(express.json());
+app.use(cors());
 // Connect to MongoDB
 mongoose.connect(process.env.CONNECTION_STRING)
     .then(() => console.log('Connected to MongoDB'))
