@@ -5,15 +5,20 @@ const twilio = require('twilio');
 require('dotenv').config();
 const clientRoutes = require('./routes/clientRoutes');
 const doctorRoutes = require('./routes/doctorRoutes');
+<<<<<<< HEAD
 const medicineRoutes = require('./routes/medicineRoutes');
 const { Client, Medicine } = require('./schemas/schemas');
 
+=======
+const medicineRoutes = require('./routes/medecineRoutes');
+const cors = require('cors')
+>>>>>>> c42513924ce53c271214152e48cef9d456749e56
 const app = express();
 const port = 3000;
 
 // Middleware to parse JSON bodies
-app.use(express.json());
-
+// app.use(express.json());
+app.use(cors());
 // Connect to MongoDB
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))

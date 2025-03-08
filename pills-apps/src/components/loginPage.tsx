@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -12,66 +13,79 @@ import {
   MDBInput
 } from 'mdb-react-ui-kit';
 
+
 function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Fonction pour gérer l'envoi du formulaire
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Crée un objet avec les données du formulaire
+    const loginData = { email, password };
+
+    try {
+      // Envoie la requête de login au backend
+      const response = await fetch("http://localhost:3000/clients/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      if (response.ok) {
+        // Si la réponse est OK, on peut récupérer les données de l'utilisateur ou rediriger
+        const data = await response.json();
+        console.log("Utilisateur connecté", data);
+        // Rediriger l'utilisateur vers une autre page, si nécessaire
+      } else {
+        console.error("Erreur de login");
+        // Gérer l'erreur (par exemple afficher un message d'erreur)
+      }
+    } catch (error) {
+      console.error("Erreur de connexion", error);
+    }
+  };
+
   return (
-    // <Form>
-    //   <Form.Group className="mb-3" controlId="formBasicEmail">
-    //     <Form.Label>Email address</Form.Label>
-    //     <Form.Control type="email" placeholder="Enter email" />
-    //     <Form.Text className="text-muted">
-    //       We'll never share your email with anyone else.
-    //     </Form.Text>
-    //   </Form.Group>
+      <MDBContainer className="my-5 gradient-form">
+        <MDBRow>
+          <MDBCol col='6' className="mb-5">
+            <div className="d-flex flex-column ms-5">
+              <div className="text-center">
+                <img src="https://images.pexels.com/photos/4989135/pexels-photo-4989135.jpeg"
+                  style={{ width: '185px' }} alt="logo" />
+                <h4 className="mt-1 mb-5 pb-1">MedzTracker</h4>
+              </div>
 
-    //   <Form.Group className="mb-3" controlId="formBasicPassword">
-    //     <Form.Label>Password</Form.Label>
-    //     <Form.Control type="password" placeholder="Password" />
-    //   </Form.Group>
-      
-    //   <Button variant="primary" type="submit">
-    //     Submit
-    //   </Button>
-    // </Form>
+              <p>Connection</p>
+              <form onSubmit={handleSubmit}>
+                <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 
-    <MDBContainer className="my-5 gradient-form">
 
-      <MDBRow>
+                <div className="text-center pt-1 mb-5 pb-1">
+                  <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">Sign in</MDBBtn>
+                </div>
+              </form>
 
-        <MDBCol col='6' className="mb-5">
-          <div className="d-flex flex-column ms-5">
+              <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
+                <p className="mb-0">Vous n'avez pas de compte?</p>
+                <MDBBtn outline className='mx-2' color='danger'>
+                  Créez votre compte
+                </MDBBtn>
+              </div>
 
-            <div className="text-center">
-              <img src="https://images.pexels.com/photos/4989135/pexels-photo-4989135.jpeg"
-                style={{width: '185px'}} alt="logo" />
-              <h4 className="mt-1 mb-5 pb-1">MedzTracker</h4>
             </div>
 
-            <p>Connection</p>
+          </MDBCol>
+        </MDBRow>
+
+      </MDBContainer>
+    );
+  }
 
 
-            <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email'/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
-
-
-            <div className="text-center pt-1 mb-5 pb-1">
-              <MDBBtn className="mb-4 w-100 gradient-custom-2">Sign in</MDBBtn>
-            </div>
-
-            <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
-              <p className="mb-0">Vous n'avez pas de compte?</p>
-              <MDBBtn outline className='mx-2' color='danger'>
-                Créez votre compte
-              </MDBBtn>
-            </div>
-
-          </div>
-
-        </MDBCol>
-      </MDBRow>
-
-    </MDBContainer>
-  );
-}
-
-
-export default LoginPage;
+  export default LoginPage;
