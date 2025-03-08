@@ -42,6 +42,10 @@ router.get('/clients', async (req, res) => {
     }
 });
 
+
+
+
+
 // Get a client by ID
 router.get('/clients/:id', async (req, res) => {
     try {
