@@ -1,0 +1,37 @@
+POST http://localhost:3000/api/clients
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "phoneNumber": "+1234567890",
+  "emailAddress": "johndoe@example.com",
+  "password": "SecurePass123",
+  "prescriptionList": [
+    "65eacc5f5c3b3a001f5e7d89",
+    "65eacc5f5c3b3a001f5e7d8a"
+  ],
+  "flags": "skipped",
+  "interactions": "none",
+  "doctor": "65eacc5f5c3b3a001f5e7d8b"
+}
+
+###
+GET http://localhost:3000/api/clients
+
+###
+
+GET http://localhost:3000/api/clients/67ccb0e452c9cd2e115a3b55
+
+
+###
+PATCH http://localhost:3000/api/clients/67ccb0e452c9cd2e115a3b55
+Content-Type: application/json
+
+{
+  "flags": "test",
+  "interactions": "none"
+}
+
+###
+
+DELETE http://localhost:3000/api/clients/67ccb0e452c9cd2e115a3b55

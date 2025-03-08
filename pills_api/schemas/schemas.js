@@ -8,7 +8,7 @@ const medicineSchema = new mongoose.Schema({
     endDate: { type: Date },
     frequency: { type: String, required: true },
     timeOfTheDay: { type: String },
-    additionalInfo: { type: String }
+    disclaimer: { type: String }
 });
 
 // Client Schema
@@ -31,6 +31,8 @@ const doctorSchema = new mongoose.Schema({
     clientsList: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Client' }],
     email: { type: String, required: true, unique: true }
 });
+
+
 
 // Export models
 const Medicine = mongoose.model('Medicine', medicineSchema);
