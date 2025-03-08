@@ -5,14 +5,10 @@ const twilio = require('twilio');
 require('dotenv').config();
 const clientRoutes = require('./routes/clientRoutes');
 const doctorRoutes = require('./routes/doctorRoutes');
-<<<<<<< HEAD
 const medicineRoutes = require('./routes/medicineRoutes');
 const { Client, Medicine } = require('./schemas/schemas');
 
-=======
-const medicineRoutes = require('./routes/medecineRoutes');
 const cors = require('cors')
->>>>>>> c42513924ce53c271214152e48cef9d456749e56
 const app = express();
 const port = 3000;
 
