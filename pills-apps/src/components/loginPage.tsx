@@ -13,10 +13,9 @@ import { useNavigate } from "react-router-dom";
 
 
 function LoginPage() {
-  const navigate = useNavigate()
   const [emailAddress, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  let data;
+  const navigate = useNavigate()
 
   // Fonction pour gérer l'envoi du formulaire
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +23,6 @@ function LoginPage() {
 
     // Crée un objet avec les données du formulaire
     const loginData = { emailAddress, password };
-
     try {
       // Envoie la requête de login au backend
       const response = await fetch("http://localhost:3000/api/clients/login", {
@@ -37,9 +35,11 @@ function LoginPage() {
 
       if (response.ok) {
         // Si la réponse est OK, on peut récupérer les données de l'utilisateur ou rediriger
-        data = await response.json();
-        console.log("Utilisateur connecté", data);
+        const currentUser = await response.json();
         // Rediriger l'utilisateur vers une autre page, si nécessaire
+        navigate("/profile", {
+          state: {user:currentUser},
+        });
       } else {
         console.log(response)
         console.error("Erreur de login");
@@ -68,13 +68,13 @@ function LoginPage() {
 
 
                 <div className="text-center pt-1 mb-5 pb-1">
-                  <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit" onClick={() => navigate("/BasicExample")}>Sign in</MDBBtn>
+                  <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">Sign in</MDBBtn>
                 </div>
               </form>
 
               <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
                 <p className="mb-0">Vous n'avez pas de compte?</p>
-                <MDBBtn outline className='mx-2' color='danger'>
+                <MDBBtn outline className='mx-2' >
                   Créez votre compte
                 </MDBBtn>
               </div>

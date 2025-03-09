@@ -1,20 +1,26 @@
 import Accordion from 'react-bootstrap/Accordion';
-import './pills_api/schemas/schemas.js'
-import data from './loginPage.js'
+import {User} from '../classes/User.js' 
+import { useLocation } from 'react-router-dom';
+import './listemeds.css'
+import mockUser from '../mockUser.json';
 
-function BasicExample(currentUser) {
+function BasicExample() {
+  const location = useLocation();
+  //const {user}: {user: User} = location.state || {};
     return (
-        
+      <>
+        <h1 className='title'>Bonjour, {mockUser.name}</h1>
         <Accordion defaultActiveKey="0">
-          {prescriptionList.map((i) => ( // changer liste par celle qui aura été  générée par Félix.
-            <Accordion.Item eventKey={String(i)} key={i}>
-              <Accordion.Header>Accordion Item #{i}</Accordion.Header>
+          {mockUser.prescriptionList.map((med, index) => ( // changer liste par celle qui aura été  générée par Félix.
+            <Accordion.Item eventKey={String(index)} key={index}>
+              <Accordion.Header>{med.medicineName}</Accordion.Header>
               <Accordion.Body>
-                Contenu de l'item {i}
+                {med.description}
               </Accordion.Body>
             </Accordion.Item>
           ))}
         </Accordion>
+      </>
       );
     }
     
