@@ -33,7 +33,6 @@ const doctorSchema = new mongoose.Schema({
 });
 
 
-
 // Export models
 const Medicine = mongoose.model('Medicine', medicineSchema);
 const Client = mongoose.model('Client', clientSchema);
