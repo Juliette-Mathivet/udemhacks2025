@@ -1,8 +1,5 @@
 import { useState } from "react";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import "./loginPage.css"
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import {
@@ -12,11 +9,13 @@ import {
   MDBCol,
   MDBInput
 } from 'mdb-react-ui-kit';
+import { useNavigate } from "react-router-dom";
 
 
 function LoginPage() {
   const [emailAddress, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   // Fonction pour gérer l'envoi du formulaire
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +23,6 @@ function LoginPage() {
 
     // Crée un objet avec les données du formulaire
     const loginData = { emailAddress, password };
-
     try {
       // Envoie la requête de login au backend
       const response = await fetch("http://localhost:3000/api/clients/login", {
@@ -37,9 +35,11 @@ function LoginPage() {
 
       if (response.ok) {
         // Si la réponse est OK, on peut récupérer les données de l'utilisateur ou rediriger
-        const data = await response.json();
-        console.log("Utilisateur connecté", data);
+        const currentUser = await response.json();
         // Rediriger l'utilisateur vers une autre page, si nécessaire
+        navigate("/profile", {
+          state: {user:currentUser},
+        });
       } else {
         console.log(response)
         console.error("Erreur de login");
@@ -74,7 +74,7 @@ function LoginPage() {
 
               <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
                 <p className="mb-0">Vous n'avez pas de compte?</p>
-                <MDBBtn outline className='mx-2' color='danger'>
+                <MDBBtn outline className='mx-2' >
                   Créez votre compte
                 </MDBBtn>
               </div>
