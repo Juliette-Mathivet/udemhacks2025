@@ -1,8 +1,5 @@
 import { useState } from "react";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import "./loginPage.css"
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import {
@@ -12,11 +9,14 @@ import {
   MDBCol,
   MDBInput
 } from 'mdb-react-ui-kit';
+import { useNavigate } from "react-router-dom";
 
 
 function LoginPage() {
+  const navigate = useNavigate()
   const [emailAddress, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let data;
 
   // Fonction pour gérer l'envoi du formulaire
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +37,7 @@ function LoginPage() {
 
       if (response.ok) {
         // Si la réponse est OK, on peut récupérer les données de l'utilisateur ou rediriger
-        const data = await response.json();
+        data = await response.json();
         console.log("Utilisateur connecté", data);
         // Rediriger l'utilisateur vers une autre page, si nécessaire
       } else {
@@ -68,7 +68,7 @@ function LoginPage() {
 
 
                 <div className="text-center pt-1 mb-5 pb-1">
-                  <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">Sign in</MDBBtn>
+                  <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit" onClick={() => navigate("/BasicExample")}>Sign in</MDBBtn>
                 </div>
               </form>
 
